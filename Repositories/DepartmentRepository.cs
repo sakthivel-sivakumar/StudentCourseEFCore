@@ -8,9 +8,16 @@ namespace StudentCourseEFCore.Repositories;
 
 public class DepartmentRepository
 {
+    private readonly AppDbContext db;
+
+    public DepartmentRepository(AppDbContext context)
+    {
+        db = context;
+    }
+
     public async Task<int> AddAsync(Department department)
     {
-        await using var db = new AppDbContext();
+        // await using var db = new AppDbContext();
 
         db.Departments.Add(department);
 
@@ -30,7 +37,7 @@ public class DepartmentRepository
 
     public async Task<List<Department>> GetAllAsync()
     {
-        await using var db = new AppDbContext();
+       // await using var db = new AppDbContext();
 
         return await db.Departments
             .OrderBy(d => d.DepartmentId)
@@ -39,7 +46,7 @@ public class DepartmentRepository
 
     public async Task<Department?> GetByIdAsync(int id)
     {
-        await using var db = new AppDbContext();
+        //await using var db = new AppDbContext();
 
         return await db.Departments.FindAsync(id);
     }
@@ -49,7 +56,7 @@ public class DepartmentRepository
     string departmentName,
     string? location)
     {
-        await using var db = new AppDbContext();
+       // await using var db = new AppDbContext();
 
         var department = await db.Departments.FindAsync(id);
 
@@ -75,7 +82,7 @@ public class DepartmentRepository
 
     public async Task<bool> DeleteAsync(int id)
     {
-        await using var db = new AppDbContext();
+        // await using var db = new AppDbContext();
 
         var department = await db.Departments.FindAsync(id);
 

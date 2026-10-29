@@ -7,10 +7,18 @@ namespace StudentCourseEFCore.Repositories;
 
 public class StudentRepository
 {
+    private readonly AppDbContext db;
+
+    public StudentRepository(AppDbContext context)
+    {
+        db = context;
+    }
+
+
     // 1. Add Student
     public async Task<int> AddAsync(Student student)
     {
-        await using var db = new AppDbContext();
+        //await using var db = new AppDbContext();
 
         db.Students.Add(student);
 
@@ -22,7 +30,7 @@ public class StudentRepository
     // 2. Get All Students
     public async Task<List<Student>> GetAllAsync()
     {
-        await using var db = new AppDbContext();
+        //await using var db = new AppDbContext();
 
        
 
@@ -35,7 +43,7 @@ public class StudentRepository
     // 3. Get Student By ID
     public async Task<Student?> GetByIdAsync(int id)
     {
-        await using var db = new AppDbContext();
+        //await using var db = new AppDbContext();
 
         return await db.Students
             .Include(s => s.Department)
@@ -50,7 +58,7 @@ public class StudentRepository
         int age,
         int departmentId)
     {
-        await using var db = new AppDbContext();
+        //await using var db = new AppDbContext();
 
         var student = await db.Students.FindAsync(id);
 
@@ -82,7 +90,7 @@ public class StudentRepository
     // 5. Delete Student
     public async Task<bool> DeleteAsync(int id)
     {
-        await using var db = new AppDbContext();
+        //await using var db = new AppDbContext();
 
         var student = await db.Students.FindAsync(id);
 

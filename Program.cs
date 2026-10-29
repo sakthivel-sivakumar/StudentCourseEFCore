@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using StudentCourseEFCore.Data;
@@ -8,9 +9,24 @@ using StudentCourseEFCore.Services;
 
 var builder = Host.CreateApplicationBuilder(args);
 
+/*
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(
         "Server=.\\SQLEXPRESS;Database=StudentCourseEFCoreDB;Trusted_Connection=True;TrustServerCertificate=True;"));
+*/
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Check connection string
+var connectionString =
+builder.Configuration.GetConnectionString("DefaultConnection");
+
+Console.WriteLine(
+    $"Connection string loaded: {!string.IsNullOrWhiteSpace(connectionString)}");
+
+
 
 builder.Services.AddScoped<DepartmentRepository>();
 builder.Services.AddScoped<StudentRepository>();
@@ -82,3 +98,9 @@ while (true)
     }
 }
 
+
+
+
+
+
+//EntityState

@@ -6,9 +6,17 @@ namespace StudentCourseEFCore.Repositories;
 
 public class EnrollmentRepository
 {
+    private readonly AppDbContext db;
+
+    public EnrollmentRepository(AppDbContext context)
+    {
+        db = context;
+    }
+
+
     public async Task<int> AddAsync(Enrollment enrollment)
     {
-        await using var db = new AppDbContext();
+       // await using var db = new AppDbContext();
 
         // Verify that the student exists.
         bool studentExists = await db.Students
@@ -41,7 +49,7 @@ public class EnrollmentRepository
 
     public async Task<List<Enrollment>> GetAllAsync()
     {
-        await using var db = new AppDbContext();
+        //await using var db = new AppDbContext();
 
         return await db.Enrollments
             .AsNoTracking()
@@ -53,7 +61,7 @@ public class EnrollmentRepository
 
     public async Task<Enrollment?> GetByIdAsync(int enrollmentId)
     {
-        await using var db = new AppDbContext();
+        //await using var db = new AppDbContext();
 
         return await db.Enrollments
             .AsNoTracking()
@@ -65,7 +73,7 @@ public class EnrollmentRepository
 
     public async Task<List<Enrollment>> GetByStudentIdAsync(int studentId)
     {
-        await using var db = new AppDbContext();
+        //await using var db = new AppDbContext();
 
         return await db.Enrollments
             .AsNoTracking()
@@ -78,7 +86,7 @@ public class EnrollmentRepository
 
     public async Task<bool> DeleteAsync(int enrollmentId)
     {
-        await using var db = new AppDbContext();
+        //await using var db = new AppDbContext();
 
         var enrollment = await db.Enrollments
             .FindAsync(enrollmentId);
