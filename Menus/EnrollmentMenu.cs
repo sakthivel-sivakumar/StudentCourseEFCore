@@ -79,7 +79,7 @@ public class EnrollmentMenu
         try
         {
             var students = await _studentService.GetAllAsync();
-            var courses = _courseService.GetAll();
+            var courses = await _courseService.GetAllAsync();
 
             if (students.Count == 0)
             {

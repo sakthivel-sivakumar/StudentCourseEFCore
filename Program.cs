@@ -9,12 +9,6 @@ using StudentCourseEFCore.Services;
 
 var builder = Host.CreateApplicationBuilder(args);
 
-/*
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(
-        "Server=.\\SQLEXPRESS;Database=StudentCourseEFCoreDB;Trusted_Connection=True;TrustServerCertificate=True;"));
-*/
-
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -82,7 +76,7 @@ while (true)
             break;
 
         case 3:
-            courseMenu.Show();
+            await courseMenu.ShowAsync();
             break;
 
         case 4:

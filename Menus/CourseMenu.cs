@@ -15,7 +15,7 @@ public class CourseMenu
         _service = service;
     }
 
-    public void Show()
+    public async Task ShowAsync()
     {
         while (true)
         {
@@ -38,19 +38,19 @@ public class CourseMenu
             switch (choice)
             {
                 case 1:
-                    Add();
+                    await AddAsync();
                     break;
                 case 2:
-                    GetAll();
+                    await GetAllAsync();
                     break;
                 case 3:
-                    GetById();
+                    await GetByIdAsync();
                     break;
                 case 4:
-                    Update();
+                    await UpdateAsync();
                     break;
                 case 5:
-                    Delete();
+                    await DeleteAsync();
                     break;
                 case 0:
                     return;
@@ -62,7 +62,7 @@ public class CourseMenu
         }
     }
 
-    private void Add()
+    private async Task AddAsync()
     {
         string name = ConsoleHelper.ReadRequiredInput(
             "Enter course name: ");
@@ -84,7 +84,7 @@ public class CourseMenu
 
         try
         {
-            _service.Add(course);
+            await _service.AddAsync(course);
             Console.WriteLine("Course added successfully.");
         }
         catch (DbUpdateException)
@@ -94,9 +94,9 @@ public class CourseMenu
         }
     }
 
-    private void GetAll()
+    private async Task GetAllAsync()
     {
-        var courses = _service.GetAll();
+        var courses = await _service.GetAllAsync();
 
         if (courses.Count == 0)
         {
@@ -116,13 +116,13 @@ public class CourseMenu
         }
     }
 
-    private void GetById()
+    private async Task GetByIdAsync()
     {
         if (!ConsoleHelper.TryReadId(
                 "Enter course ID: ", out int id))
             return;
 
-        var course = _service.GetById(id);
+        var course = await _service.GetByIdAsync(id);
 
         if (course is null)
         {
@@ -137,13 +137,13 @@ public class CourseMenu
         Console.WriteLine($"Active: {course.IsActive}");
     }
 
-    private void Update()
+    private async Task UpdateAsync()
     {
         if (!ConsoleHelper.TryReadId(
                 "Enter course ID to update: ", out int id))
             return;
 
-        var course = _service.GetById(id);
+        var course = await _service.GetByIdAsync(id);
 
         if (course is null)
         {
@@ -168,7 +168,7 @@ public class CourseMenu
 
         try
         {
-            _service.Update(course);
+            await _service.UpdateAsync(course);
             Console.WriteLine("Course updated successfully.");
         }
         catch (DbUpdateException)
@@ -178,13 +178,13 @@ public class CourseMenu
         }
     }
 
-    private void Delete()
+    private async Task DeleteAsync()
     {
         if (!ConsoleHelper.TryReadId(
                 "Enter course ID to delete: ", out int id))
             return;
 
-        var course = _service.GetById(id);
+        var course = await _service.GetByIdAsync(id);
 
         if (course is null)
         {
@@ -206,7 +206,7 @@ public class CourseMenu
 
         try
         {
-            bool deleted = _service.Delete(id);
+            bool deleted = await _service.DeleteAsync(id);
 
             Console.WriteLine(
                 deleted

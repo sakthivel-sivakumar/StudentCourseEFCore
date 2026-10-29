@@ -18,8 +18,6 @@ public class StudentRepository
     // 1. Add Student
     public async Task<int> AddAsync(Student student)
     {
-        //await using var db = new AppDbContext();
-
         db.Students.Add(student);
 
         await db.SaveChangesAsync();
@@ -30,10 +28,6 @@ public class StudentRepository
     // 2. Get All Students
     public async Task<List<Student>> GetAllAsync()
     {
-        //await using var db = new AppDbContext();
-
-       
-
         return await db.Students
             .Include(s => s.Department)
             .OrderBy(s => s.StudentId)
@@ -43,8 +37,6 @@ public class StudentRepository
     // 3. Get Student By ID
     public async Task<Student?> GetByIdAsync(int id)
     {
-        //await using var db = new AppDbContext();
-
         return await db.Students
             .Include(s => s.Department)
             .FirstOrDefaultAsync(s => s.StudentId == id);
@@ -58,8 +50,6 @@ public class StudentRepository
         int age,
         int departmentId)
     {
-        //await using var db = new AppDbContext();
-
         var student = await db.Students.FindAsync(id);
 
         if (student is null)
@@ -90,8 +80,6 @@ public class StudentRepository
     // 5. Delete Student
     public async Task<bool> DeleteAsync(int id)
     {
-        //await using var db = new AppDbContext();
-
         var student = await db.Students.FindAsync(id);
 
         if (student is null)

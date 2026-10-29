@@ -12,18 +12,18 @@ public class CourseService
         _repository = repository;
     }
 
-    public void Add(Course course)
-        => _repository.Add(course);
+    public Task AddAsync(Course course)
+        => _repository.AddAsync(course);
 
-    public List<Course> GetAll()
-        => _repository.GetAll();
+    public Task<List<Course>> GetAllAsync()
+        => _repository.GetAllAsync();
 
-    public Course? GetById(int id)
-        => _repository.GetById(id);
+    public Task<Course?> GetByIdAsync(int id)
+        => _repository.GetByIdAsync(id);
 
-    public void Update(Course course)
-        => _repository.Update(course);
+    public Task UpdateAsync(Course course)
+        => _repository.UpdateAsync(course);
 
-    public bool Delete(int id)
-        => _repository.Delete(id);
+    public Task<bool> DeleteAsync(int id)
+        => _repository.DeleteAsync(id);
 }

@@ -14,39 +14,39 @@ public class CourseRepository
         _context = context;
     }
 
-    public void Add(Course course)
+    public async Task AddAsync(Course course)
     {
         _context.Courses.Add(course);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
     }
 
-    public List<Course> GetAll()
+    public async Task<List<Course>> GetAllAsync()
     {
-        return _context.Courses
+        return await _context.Courses
             .AsNoTracking()
-            .ToList();
+            .ToListAsync();
     }
 
-    public Course? GetById(int id)
+    public async Task<Course?> GetByIdAsync(int id)
     {
-        return _context.Courses.Find(id);
+        return await _context.Courses.FindAsync(id);
     }
 
-    public void Update(Course course)
+    public async Task UpdateAsync(Course course)
     {
         _context.Courses.Update(course);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
     }
 
-    public bool Delete(int id)
+    public async Task<bool> DeleteAsync(int id)
     {
-        var course = _context.Courses.Find(id);
+        var course = await _context.Courses.FindAsync(id);
 
         if (course is null)
             return false;
 
         _context.Courses.Remove(course);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
 
         return true;
     }

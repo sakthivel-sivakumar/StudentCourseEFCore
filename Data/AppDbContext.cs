@@ -5,16 +5,6 @@ namespace StudentCourseEFCore.Data;
 
 public class AppDbContext : DbContext
 {
-    /*
-     * We dont need this constructor because we are using dependency injection 
-     * to configure the DbContext in Program.cs.
-     
-    public AppDbContext()
-    {
-    }
-
-    */
-
     public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)
     {
@@ -24,21 +14,6 @@ public class AppDbContext : DbContext
     public DbSet<Student> Students => Set<Student>();
     public DbSet<Course> Courses => Set<Course>();
     public DbSet<Enrollment> Enrollments => Set<Enrollment>();
-
-    /*
-     * We dont need this onconfiguring method because we are using dependency injection 
-     * to configure the DbContext in Program.cs.
-     * 
-    protected override void OnConfiguring(
-        DbContextOptionsBuilder optionsBuilder)
-    {
-        if (!optionsBuilder.IsConfigured)
-        {
-            optionsBuilder.UseSqlServer(
-                @"Server=.\SQLEXPRESS;Database=StudentCourseEFCoreDB;Trusted_Connection=True;TrustServerCertificate=True;");
-        }
-    }
-    */
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
